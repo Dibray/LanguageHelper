@@ -3,9 +3,14 @@
     public abstract class Word
     {
         private string value = "";
-        private string Value
+        virtual protected internal string Value
         {
-            set
+            get
+            {
+                return value;
+            }
+
+            private set
             {
                 this.value = value;
             }
