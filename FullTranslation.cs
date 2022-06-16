@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
 
-    public class Translation
+    public class FullTranslation
     {
-        private Word foreignWord;
-        private Word ForeignWord
+        private Word foreignWord = new Word();
+        public Word ForeignWord
         {
             get
             {
@@ -22,8 +22,8 @@
         /// Every internal list - is different meanings of translation of the word (polysemantic words).
         /// Internal list itself contains similar meanings of the one translation.
         /// </summary>
-        private List<List<Word>> wordTranslation;
-        private List<List<Word>> WordTranslation
+        private List<List<Word>> wordTranslation = new List<List<Word>>();
+        public List<List<Word>> WordTranslation
         {
             get
             {
@@ -31,19 +31,19 @@
             }
         }
 
-        private void AddTranslation(Word word)
+        private void AddTranslation(in Word word)
         {
             List<Word> newMeaning = new List<Word>();
             newMeaning.Add(word);
 
-            WordTranslation.Add(newMeaning);
+            wordTranslation.Add(newMeaning);
         }
 
-        private void AddSimilarTranslation(Word word, string key = null)
+        private void AddSimilarTranslation(in Word word, in string key = null)
         {
             if (WordTranslation.Count < 1)
             {
-                System.Console.WriteLine($"Думата \"{foreignWord.Value}\" няма преводи.");
+                System.Console.WriteLine($"Думата \"{ForeignWord.Value}\" няма преводи.");
                 return;
             }
 

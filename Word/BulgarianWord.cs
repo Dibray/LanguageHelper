@@ -2,7 +2,9 @@
 {
     public class BulgarianWord : Word
     {
-        public BulgarianWord(string word, PartOfSpeech partOfSpeech)
-            : base(word, partOfSpeech) { }
+        public BulgarianWord() { }
+
+        public BulgarianWord(in string word)
+            : base(word) { }
     }
 }

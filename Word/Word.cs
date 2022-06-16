@@ -1,34 +1,40 @@
 ﻿namespace LanguageHelper
 {
-    public abstract class Word
+    public class Word
     {
         private string value = "";
-        virtual protected internal string Value
+        virtual public string Value
         {
             get
             {
                 return value;
             }
 
-            private set
+            set
             {
                 this.value = value;
             }
         }
 
         private PartOfSpeech partOfSpeech;
-        private PartOfSpeech PartOfSpeech
+        public PartOfSpeech PartOfSpeech
         {
+            get
+            {
+                return partOfSpeech;
+            }
+
             set
             {
                 partOfSpeech = value;
             }
         }
 
-        internal Word(string word, PartOfSpeech partOfSpeech)
+        public Word() { }
+
+        public Word(in string word)
         {
             Value = word;
-            PartOfSpeech = partOfSpeech;
         }
     }
 }

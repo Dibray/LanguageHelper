@@ -7,7 +7,7 @@
             Der = 0, Die, Das
         }
 
-        protected internal override string Value
+        public override string Value
         {
             get
             {
@@ -29,8 +29,10 @@
             }
         }
 
-        public GermanWord(DefiniteArticle article, string word, PartOfSpeech partOfSpeech)
-            : base(word, partOfSpeech)
+        public GermanWord() { }
+
+        public GermanWord(in string word, in DefiniteArticle article)
+            : base(word)
         {
             Article = article;
         }
