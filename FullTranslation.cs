@@ -31,7 +31,7 @@
             }
         }
 
-        private void AddTranslation(in Word word)
+        public void AddTranslation(Word word)
         {
             List<Word> newMeaning = new List<Word>();
             newMeaning.Add(word);
@@ -39,7 +39,7 @@
             wordTranslation.Add(newMeaning);
         }
 
-        private void AddSimilarTranslation(in Word word, in string key = null)
+        public void AddSimilarTranslation(Word word, string key = null)
         {
             if (WordTranslation.Count < 1)
             {
