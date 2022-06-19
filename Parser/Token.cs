@@ -18,7 +18,11 @@
             DefiniteArticleDer,
             DefiniteArticleDie,
             DefiniteArticleDas,
-            Noun
+            Noun,
+            Adj,
+            Pron,
+            Prep,
+            Conj
         }
 
         private TKind kind;

@@ -3,6 +3,10 @@
     public enum PartOfSpeech : byte
     {
         Verb = 0,
-        Noun
+        Noun,
+        Adjective,
+        Pronoun,
+        Preposition,
+        Conjunction
     }
 }

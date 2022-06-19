@@ -125,6 +125,38 @@
             return (ForeignWordProc(fullTranslation.ForeignWord) && Separator() && TranslationProc(fullTranslation));
         }
 
+        private static bool AdjectiveProc(in FullTranslation fullTranslation)
+        {
+            fullTranslation.ForeignWord = new GermanWord();
+            fullTranslation.ForeignWord.PartOfSpeech = PartOfSpeech.Conjunction;
+
+            return (ForeignWordProc(fullTranslation.ForeignWord) && Separator() && TranslationProc(fullTranslation));
+        }
+
+        private static bool PronounProc(in FullTranslation fullTranslation)
+        {
+            fullTranslation.ForeignWord = new GermanWord();
+            fullTranslation.ForeignWord.PartOfSpeech = PartOfSpeech.Pronoun;
+
+            return (ForeignWordProc(fullTranslation.ForeignWord) && Separator() && TranslationProc(fullTranslation));
+        }
+
+        private static bool PrepositionProc(in FullTranslation fullTranslation)
+        {
+            fullTranslation.ForeignWord = new GermanWord();
+            fullTranslation.ForeignWord.PartOfSpeech = PartOfSpeech.Preposition;
+
+            return (ForeignWordProc(fullTranslation.ForeignWord) && Separator() && TranslationProc(fullTranslation));
+        }
+
+        private static bool ConjunctionProc(in FullTranslation fullTranslation)
+        {
+            fullTranslation.ForeignWord = new GermanWord();
+            fullTranslation.ForeignWord.PartOfSpeech = PartOfSpeech.Conjunction;
+
+            return (ForeignWordProc(fullTranslation.ForeignWord) && Separator() && TranslationProc(fullTranslation));
+        }
+
         public static bool FullTranslationProc(in FullTranslation fullTranslation)
         {
             switch (TokenStream.Get().Kind)
@@ -135,6 +167,22 @@
 
                 case Token.TKind.Noun:
                     return NounProc(fullTranslation);
+                //break;
+
+                case Token.TKind.Adj:
+                    return AdjectiveProc(fullTranslation);
+                //break;
+
+                case Token.TKind.Pron:
+                    return PronounProc(fullTranslation);
+                //break;
+
+                case Token.TKind.Prep:
+                    return PrepositionProc(fullTranslation);
+                //break;
+
+                case Token.TKind.Conj:
+                    return ConjunctionProc(fullTranslation);
                 //break;
 
                 default:

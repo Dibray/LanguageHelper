@@ -36,7 +36,27 @@
                 case PartOfSpeech.Verb:
                     s = "@гл";
                     break;
-
+                    
+                case PartOfSpeech.Noun:
+                    s = "@същ";
+                    break;
+                    
+                case PartOfSpeech.Adjective:
+                    s = "@прил";
+                    break;
+                    
+                case PartOfSpeech.Pronoun:
+                    s = "@мест";
+                    break;
+                    
+                case PartOfSpeech.Preposition:
+                    s = "@пред";
+                    break;
+                    
+                case PartOfSpeech.Conjunction:
+                    s = "@съюз";
+                    break;
+                    
                 default:
                     System.Console.WriteLine("Something went very wrong. (PartOfSpeechToString)\n");
                     break;

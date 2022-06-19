@@ -51,12 +51,13 @@
                     else
                     {
                         if (TokenStream.Get(input).Kind == Token.TKind.End)
-                            return; // If user doesn't know all the translations
+                            break; // If user doesn't know all the translations
                     }
 
                 } while (remainingTranslations > 0);
 
-                Console.WriteLine($"Всичките преводи на {tr.ForeignWord.Value} са въведени.");
+                if (remainingTranslations == 0)
+                    Console.WriteLine($"Всичките преводи на {tr.ForeignWord.Value} са въведени.");
             }
         }
 
@@ -72,6 +73,10 @@
                     // Part of speech
                     case Token.TKind.Verb:
                     case Token.TKind.Noun:
+                    case Token.TKind.Adj:
+                    case Token.TKind.Pron:
+                    case Token.TKind.Prep:
+                    case Token.TKind.Conj:
                         TokenStream.Putback(t);
 
                         FullTranslation fullTranslation = new FullTranslation();

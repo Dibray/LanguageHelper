@@ -82,6 +82,22 @@
                     return new Token(Token.TKind.Noun);
                 //break;
 
+                case "@прил":
+                    return new Token(Token.TKind.Adj);
+                //break;
+
+                case "@мест":
+                    return new Token(Token.TKind.Pron);
+                //break;
+
+                case "@пред":
+                    return new Token(Token.TKind.Prep);
+                //break;
+
+                case "@съюз":
+                    return new Token(Token.TKind.Conj);
+                //break;
+
                 case "ask":
                     return new Token(Token.TKind.Ask);
                 //break;
