@@ -4,9 +4,7 @@
     {
         private static bool Separator()
         {
-            Token t = TokenStream.Get();
-
-            if (t.Kind == Token.TKind.Separator)
+            if (TokenStream.Get().Kind == Token.TKind.Separator)
                 return true;
 
             System.Console.WriteLine("Няма разделител. (Separator)\n");
@@ -25,11 +23,22 @@
             if (t.Kind == Token.TKind.String)
             {
                 word.Value = t.Value;
+
+                t = TokenStream.Get();
+                while (t.Kind == Token.TKind.String)
+                {
+                    word.Value = word.Value + " " + t.Value;
+                    t = TokenStream.Get();
+                }
+
+                TokenStream.Putback(t);
                 return true;
             }
-
-            System.Console.WriteLine("Неправилен синтаксис. (Word)\n");
-            return false;
+            else // There is no word
+            {
+                System.Console.WriteLine("Неправилен синтаксис. (Word)\n");
+                return false;
+            }
         }
 
         private static bool ForeignWordProc(in Word word)
@@ -37,24 +46,55 @@
             return WordProc(word);
         }
 
+        private static bool TranslationProc(in FullTranslation fullTranslation)
+        {
+            BulgarianWord word = new BulgarianWord();
+
+            if (!WordProc(word)) // There is no translation
+                return false;
+
+            fullTranslation.AddTranslation(word);
+
+            // Parse all remaining translations if exist
+            Token t = TokenStream.Get();
+            do
+            {
+                switch (t.Kind)
+                {
+                    case Token.TKind.Comma:
+                        if (WordProc(word = new BulgarianWord()))
+                            fullTranslation.AddSimilarTranslation(word);
+                        else
+                            return true;
+
+                        break;
+
+                    case Token.TKind.Semicolon:
+                        if (WordProc(word = new BulgarianWord()))
+                            fullTranslation.AddTranslation(word);
+                        else
+                            return true;
+
+                        break;
+
+                    default:
+                        return true;
+                        //break;
+                }
+
+                t = TokenStream.Get();
+
+            } while (t.Kind != Token.TKind.Dot);
+
+            return true;
+        }
+
         private static bool VerbProc(in FullTranslation fullTranslation)
         {
             fullTranslation.ForeignWord = new GermanWord();
             fullTranslation.ForeignWord.PartOfSpeech = PartOfSpeech.Verb;
 
-            if (ForeignWordProc(fullTranslation.ForeignWord) && Separator())
-            {
-                BulgarianWord w = new BulgarianWord();
-
-                if (!WordProc(w)) // There is no translation
-                    return false;
-
-                fullTranslation.AddTranslation(w);
-
-                return true;
-            }
-
-            return false;
+            return (ForeignWordProc(fullTranslation.ForeignWord) && Separator() && TranslationProc(fullTranslation));
         }
 
         public static bool FullTranslationProc(in FullTranslation fullTranslation)

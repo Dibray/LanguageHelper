@@ -24,6 +24,12 @@
             full = true;
         }
 
+        private static Token ReleaseBuffer()
+        {
+            full = false;
+            return Buffer;
+        }
+
         /// <summary>
         /// "Write out" symbol from System.Console stream to specified string
         /// </summary>
@@ -43,7 +49,7 @@
             while (true)
             {
                 ch = System.Console.In.Peek();
-                
+
                 if (char.IsWhiteSpace((char)ch))
                 {
                     System.Console.Read(); // Ignore symbol
@@ -64,34 +70,27 @@
             return s;
         }
 
-        public static Token Get()
+        private static Token DefineToken(string word)
         {
-            if (full)
-            {
-                full = false;
-                return Buffer;
-            }
-
-            string word = Read();
-
-            if (word == null)
-                return Get();
-
-            switch (word.ToLower())
+            switch (word)
             {
                 case "@гл":
                     return new Token(Token.TKind.Verb);
-                    //break;
+                //break;
+
+                case "ask":
+                    return new Token(Token.TKind.Ask);
+                //break;
 
                 case "der":
                 case "die":
                 case "das":
                     return new Token(Token.TKind.DefiniteArticle);
-                    //break;
+                //break;
 
                 case ".":
                     return new Token(Token.TKind.Dot);
-                    //break;
+                //break;
 
                 case ",":
                     return new Token(Token.TKind.Comma);
@@ -99,19 +98,57 @@
 
                 case ";":
                     return new Token(Token.TKind.Semicolon);
+                //break;
 
                 case "-":
                     return new Token(Token.TKind.Separator);
-                    //break;
+                //break;
+
+                case "@end":
+                    return new Token(Token.TKind.End);
+                // break;
+
+                case "save":
+                    return new Token(Token.TKind.Save);
+                //break;
 
                 case "exit":
                     return new Token(Token.TKind.Exit);
-                    //break;
+                //break;
 
                 default: // Any string
+                    int num = 0;
+
+                    if (int.TryParse(word, out num))
+                        return new Token(Token.TKind.Number, num);
+
                     return new Token(Token.TKind.String, word);
                     //break;
             }
+        }
+
+        /// <summary>
+        /// Get token from standard System.Console input stream
+        /// </summary>
+        public static Token Get()
+        {
+            if (full)
+                return ReleaseBuffer();
+
+            string word = Read();
+
+            if (word == null)
+                return Get();
+
+            return DefineToken(word.ToLower());
+        }
+
+        /// <summary>
+        /// Define token from recieved word
+        /// </summary>
+        public static Token Get(in string word)
+        {
+            return DefineToken(word);
         }
     }
 }

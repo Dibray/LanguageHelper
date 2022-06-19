@@ -5,9 +5,13 @@
         public enum TKind
         {
             Exit = 0,
+            Save,
+            Ask,
+            End,
             Verb,
-            DefiniteArticle,
             String,
+            Number,
+            DefiniteArticle,
             Dot,
             Comma,
             Semicolon,
@@ -42,6 +46,20 @@
             }
         }
 
+        private int? number = null;
+        public int? Number
+        {
+            get
+            {
+                return number;
+            }
+
+            private set
+            {
+                number = value;
+            }
+        }
+
         public Token(in TKind kind)
         {
             Kind = kind;
@@ -51,6 +69,12 @@
         {
             Kind = kind;
             Value = value;
+        }
+
+        public Token(in TKind kind, in int value)
+        {
+            Kind = kind;
+            Number = value;
         }
     }
 }
