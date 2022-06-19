@@ -11,12 +11,23 @@
         {
             get
             {
-                return Article.ToString() + " " + base.Value;
+                System.Text.StringBuilder s = new System.Text.StringBuilder(Article.ToString());
+                s[0] = char.ToLower(s[0]);
+
+                return s + " " + base.Value;
+            }
+
+            set
+            {
+                System.Text.StringBuilder s = new System.Text.StringBuilder(value);
+                s[0] = char.ToUpper(s[0]);
+
+                base.Value = s.ToString();
             }
         }
 
         private DefiniteArticle article;
-        private DefiniteArticle Article
+        public DefiniteArticle Article
         {
             get
             {
@@ -29,6 +40,6 @@
             }
         }
 
-        GermanNoun() { }
+        public GermanNoun() { }
     }
 }

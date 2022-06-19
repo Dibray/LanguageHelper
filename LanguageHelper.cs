@@ -51,7 +51,7 @@
                     else
                     {
                         if (TokenStream.Get(input).Kind == Token.TKind.End)
-                            return; // User doesn't know all the translations
+                            return; // If user doesn't know all the translations
                     }
 
                 } while (remainingTranslations > 0);
@@ -71,6 +71,7 @@
                 {
                     // Part of speech
                     case Token.TKind.Verb:
+                    case Token.TKind.Noun:
                         TokenStream.Putback(t);
 
                         FullTranslation fullTranslation = new FullTranslation();

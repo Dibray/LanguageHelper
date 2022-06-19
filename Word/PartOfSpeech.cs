@@ -2,6 +2,7 @@
 {
     public enum PartOfSpeech : byte
     {
-        Verb = 0
+        Verb = 0,
+        Noun
     }
 }

@@ -78,14 +78,24 @@
                     return new Token(Token.TKind.Verb);
                 //break;
 
+                case "@същ":
+                    return new Token(Token.TKind.Noun);
+                //break;
+
                 case "ask":
                     return new Token(Token.TKind.Ask);
                 //break;
 
                 case "der":
+                    return new Token(Token.TKind.DefiniteArticleDer);
+                //break;
+
                 case "die":
+                    return new Token(Token.TKind.DefiniteArticleDie);
+                //break;
+
                 case "das":
-                    return new Token(Token.TKind.DefiniteArticle);
+                    return new Token(Token.TKind.DefiniteArticleDas);
                 //break;
 
                 case ".":

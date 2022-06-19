@@ -8,14 +8,17 @@
             Save,
             Ask,
             End,
-            Verb,
             String,
             Number,
-            DefiniteArticle,
             Dot,
             Comma,
             Semicolon,
-            Separator
+            Separator,
+            Verb,
+            DefiniteArticleDer,
+            DefiniteArticleDie,
+            DefiniteArticleDas,
+            Noun
         }
 
         private TKind kind;

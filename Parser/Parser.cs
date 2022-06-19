@@ -93,6 +93,34 @@
         {
             fullTranslation.ForeignWord = new GermanWord();
             fullTranslation.ForeignWord.PartOfSpeech = PartOfSpeech.Verb;
+            
+            return (ForeignWordProc(fullTranslation.ForeignWord) && Separator() && TranslationProc(fullTranslation));
+        }
+
+        private static bool NounProc(in FullTranslation fullTranslation)
+        {
+            GermanNoun noun = new GermanNoun();
+            fullTranslation.ForeignWord = noun;
+            fullTranslation.ForeignWord.PartOfSpeech = PartOfSpeech.Noun;
+
+            switch (TokenStream.Get().Kind) // Define definite article
+            {
+                case Token.TKind.DefiniteArticleDer:
+                    noun.Article = GermanNoun.DefiniteArticle.Der;
+                    break;
+
+                case Token.TKind.DefiniteArticleDie:
+                    noun.Article = GermanNoun.DefiniteArticle.Die;
+                    break;
+
+                case Token.TKind.DefiniteArticleDas:
+                    noun.Article = GermanNoun.DefiniteArticle.Das;
+                    break;
+
+                default:
+                    System.Console.WriteLine("Няма определителен член.");
+                    break;
+            }
 
             return (ForeignWordProc(fullTranslation.ForeignWord) && Separator() && TranslationProc(fullTranslation));
         }
@@ -103,7 +131,11 @@
             {
                 case Token.TKind.Verb:
                     return VerbProc(fullTranslation);
-                    //break;
+                //break;
+
+                case Token.TKind.Noun:
+                    return NounProc(fullTranslation);
+                //break;
 
                 default:
                     return false;
